@@ -26,6 +26,7 @@ type Language =
 
 type Inflection =
     {
+        inflectionName       : string Option
         inflectionClasses    : Class list
         inflectionSpeechPart : PartOfSpeech
         inflectionAxes       : int list
@@ -83,6 +84,8 @@ type AxisForAPI =
 
 type InflectTForAPI =
     {
+        id         : int
+        name       : string Option
         language   : int
         speechPart : PartOfSpeech
         classes    : Class Set
@@ -95,7 +98,7 @@ type TermForAPI =
         word              : string
         speechPart        : PartOfSpeech
         wordClasses       : Class Set
-        inflection        : ((string list) * ((int list) * string) list) list Option
+        inflection        : (string Option * ((string list) * ((int list) * string) list)) list Option
         transcription     : string Option
     }
 
@@ -140,13 +143,15 @@ type IServer = {
     putAxisValue : int -> string -> Async<unit>
     deleteAxisValue : int -> Async<unit>
 
-    getAxisRules : string -> seq<string> -> int -> Async<Map<int, Rule>>
-    postAxisRule : string -> seq<string> -> int -> Rule -> Async<unit>
+    getAxisRules : int -> int -> Async<Map<int, Rule>>
+    postAxisRule : int -> int -> Rule -> Async<unit>
+    postAxisRules : int -> int -> Rule list -> Async<unit>
     putAxisRule : int -> Rule -> Async<unit>
     deleteAxisRule : int -> Async<unit>
 
-    getOverrideRules : string -> seq<string> -> int -> Async<Map<int, OverrideRule>>
-    postOverrideRule : string -> seq<string> -> OverrideRule -> Async<unit>
+    getOverrideRules : int -> int -> Async<Map<int, OverrideRule>>
+    postOverrideRule : int -> OverrideRule -> Async<unit>
+    postOverrideRules : int -> OverrideRule list -> Async<unit>
     putOverrideRule : int -> OverrideRule -> Async<unit>
     deleteOverrideRule : int -> Async<unit>
 

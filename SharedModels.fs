@@ -108,7 +108,8 @@ type TermForAPI =
 
 type IServer = {
     postLogin : LoginInfo -> Async<SecurityToken>
-    postRegister : LoginInfo -> Async<unit>
+    postRegister : LoginInfo -> string -> Async<unit>
+    getVerifyUser : string -> string -> Async<unit>
 
     getLanguages : Async<list<Language>>
     postLanguage : SecurityToken -> string -> Async<SecurityToken>

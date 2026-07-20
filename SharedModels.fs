@@ -102,8 +102,10 @@ type TermForAPI =
         word              : string
         speechPart        : PartOfSpeech
         wordClasses       : Class Set
+                          // [(inflectionName, (inflectionAxes, [(axesValues, word)])]
         inflection        : (string Option * ((string list) * ((int list) * string) list)) list Option
         transcription     : string Option
+        translation       : string Option
     }
 
 type IServer = {
